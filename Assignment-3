@@ -1,0 +1,458 @@
+----------------------------Data Structures and Algorithms - Assignment 3-----------------------------
+
+Q1. Insert 5 elements in stack and find maximum value in stack without traversing it.
+import java.util.Stack;
+
+public class MaxValueInStack {
+    private Stack<Integer> stack;
+    private Stack<Integer> maxStack;
+
+    public MaxValueInStack() {
+        stack = new Stack<>();
+        maxStack = new Stack<>();
+    }
+
+    public void push(int val) {
+        stack.push(val);
+        if (maxStack.isEmpty() || val >= maxStack.peek()) {
+            maxStack.push(val);
+        }
+    }
+
+    public int pop() {
+        if (!stack.isEmpty()) {
+            int val = stack.pop();
+            if (val == maxStack.peek()) {
+                maxStack.pop();
+            }
+            return val;
+        }
+        return -1; 
+    }
+
+    public int getMax() {
+        if (!maxStack.isEmpty()) {
+            return maxStack.peek();
+        }
+        return -1; 
+    }
+}
+
+
+public class Main {
+	public static void main(String[] args) {
+		MaxValueInStack stack = new MaxValueInStack();
+        
+        stack.push(3);
+        stack.push(7);
+        stack.push(2);
+        stack.push(9);
+        stack.push(5);
+
+        int maxValue = stack.getMax();
+        System.out.println("Maximum value in the stack: " + maxValue); // Output: Maximum value in the stack: 9
+    }
+}
+
+OUTPUT:
+Maximum value in the stack: 9
+----------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------
+
+Q2. Create an array of integers. Reverse the array using stack
+import java.util.*;
+
+public class ReverseArrayUsingStack {
+    public static void reverseArray(int[] arr) {
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = 0; i < arr.length; i++) {
+            stack.push(arr[i]);
+        }
+
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = stack.pop();
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] originalArray = {1, 2, 3, 4, 5};
+
+        System.out.println("Original Array: " + Arrays.toString(originalArray));
+
+        reverseArray(originalArray);
+
+        System.out.println("Reversed Array: " + Arrays.toString(originalArray));
+    }
+}
+//OUTPUT:
+Original Array: [1, 2, 3, 4, 5]
+Reversed Array: [5, 4, 3, 2, 1]
+----------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------
+
+Q3. Write program to implement linear queue in which front and rear starts at 0.
+
+class LinearQueue {
+	
+    private int maxSize;
+    private int[] queueArray;
+    private int front;
+    private int rear;
+
+    public LinearQueue(int size) {
+        this.maxSize = size;
+        queueArray = new int[maxSize];
+        front = 0;
+        rear = 0;
+    }
+
+    public boolean isEmpty() {
+        return front == rear;
+    }
+
+    public boolean isFull() {
+        return rear == maxSize;
+    }
+
+    public void enqueue(int item) {
+        if (!isFull()) {
+            queueArray[rear++] = item;
+        } else {
+            System.out.println("Queue is full. Cannot enqueue element.");
+        }
+    }
+
+    public int dequeue() {
+        if (!isEmpty()) {
+            return queueArray[front++];
+        } else {
+            System.out.println("Queue is empty. Cannot dequeue element.");
+            return -1;
+        }
+    }
+
+    public void displayQueue() {
+        if (!isEmpty()) {
+            System.out.print("Queue (front to rear): ");
+            for (int i = front; i < rear; i++) {
+                System.out.print(queueArray[i] + " ");
+            }
+            System.out.println();
+        } else {
+            System.out.println("Queue is empty.");
+        }
+    }
+}
+
+public class Main {
+	
+    public static void main(String[] args) {
+        LinearQueue queue = new LinearQueue(5);
+
+        queue.enqueue(10);
+        queue.enqueue(20);
+        queue.enqueue(30);
+        queue.enqueue(40);
+        queue.enqueue(50);
+
+        queue.displayQueue();
+
+        int removedElement = queue.dequeue();
+        System.out.println("Removed element: " + removedElement);
+
+        queue.displayQueue();
+    }
+}
+//OUTPUT:
+Queue (front to rear): 40 50 60 70 80 
+Removed element: 40
+Queue (front to rear): 50 60 70 80 
+----------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------
+
+Q4. Implement circular queue using counter method.
+
+class CircularQueue {
+    private int maxSize;
+    private int[] queueArray;
+    private int front;
+    private int rear;
+
+    public CircularQueue(int size) {
+        this.maxSize = size + 1;
+        queueArray = new int[maxSize];
+        front = 0;
+        rear = 0;
+    }
+
+    public boolean isEmpty() {
+        return front == rear;
+    }
+
+    public boolean isFull() {
+        return (rear + 1) % maxSize == front;
+    }
+
+    public void enqueue(int item) {
+        if (!isFull()) {
+            rear = (rear + 1) % maxSize;
+            queueArray[rear] = item;
+        } else {
+            System.out.println("Queue is full. Cannot enqueue element.");
+        }
+    }
+
+    public int dequeue() {
+        if (!isEmpty()) {
+            front = (front + 1) % maxSize;
+            return queueArray[front];
+        } else {
+            System.out.println("Queue is empty. Cannot dequeue element.");
+            return -1;
+        }
+    }
+
+    public void displayQueue() {
+        if (!isEmpty()) {
+            System.out.print("Queue (front to rear): ");
+            int i = (front + 1) % maxSize;
+            while (i != (rear + 1) % maxSize) {
+                System.out.print(queueArray[i] + " ");
+                i = (i + 1) % maxSize;
+            }
+            System.out.println();
+        } else {
+            System.out.println("Queue is empty.");
+        }
+    }
+}
+public class Tester {
+
+	public static void main(String[] args) {
+        CircularQueue queue = new CircularQueue(5);
+
+        queue.enqueue(10);
+        queue.enqueue(20);
+        queue.enqueue(30);
+        queue.enqueue(40);
+        queue.enqueue(50);
+
+        queue.displayQueue();
+
+        int removedElement = queue.dequeue();
+        System.out.println("Removed element: " + removedElement);
+
+        queue.displayQueue();
+    }
+}
+//OUTPUT:
+Queue (front to rear): 10 20 30 40 50 
+Removed element: 10
+Queue (front to rear): 20 30 40 50 
+----------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------
+
+Q5. Implement following algorithms for multi digit numbers.
+
+i. postfix evaluation
+import java.util.Stack;
+
+public class PostfixEvaluation {
+	
+	public static int calculate(int op1, char opr, int op2) {
+		switch(opr) {
+		case '+': return op1 + op2;
+		case '-': return op1 - op2;
+		case '*': return op1 * op2;
+		case '/': return op1 / op2;
+		case '%': return op1 % op2;
+		case '$': return (int)Math.pow(op1, op2);
+		}
+		return 0;
+	}
+
+		public static int postfixEvaluate(String postfix) {
+			Stack<Integer> st = new Stack<Integer>();
+			for(int i = 0  ; i < postfix.length() ; i++) {
+				char ele = postfix.charAt(i);
+				if(Character.isDigit(ele)) {
+					st.push(ele - '0');
+				}
+				else {
+					int op2 = st.pop();
+					int op1 = st.pop();
+					int res = calculate(op1, ele, op2);
+					st.push(res);
+				}
+			}
+			return st.pop();	
+		}
+}
+//OUTPUT:
+Prefix : -++4/*56397
+Result  : 16
+
+ii. prefix evaluation
+import java.util.Stack;
+
+public class PrefixEvaluation {
+	
+	public static int calculate(int op1, char opr, int op2) {
+		switch(opr) {
+		case '+': return op1 + op2;
+		case '-': return op1 - op2;
+		case '*': return op1 * op2;
+		case '/': return op1 / op2;
+		case '%': return op1 % op2;
+		case '$': return (int)Math.pow(op1, op2);
+		}
+		return 0;
+	}
+	
+	public static int prefixEvaluate(String prefix) {
+		Stack<Integer> st = new Stack<Integer>();
+
+		for(int i = prefix.length()-1 ; i >= 0 ; i--) {
+			char ele = prefix.charAt(i);
+			if(Character.isDigit(ele)) {
+				st.push(ele - '0');
+			}
+			else {
+				int op1 = st.pop();
+				int op2 = st.pop();
+				int res = calculate(op1, ele, op2);
+				st.push(res);
+			}
+		}
+		return st.pop();	
+	}
+	
+	public static void main(String[] args) {
+		
+		String prefix = "-++4/*56397";
+		System.out.println("Prefix : " + prefix);
+		int res = prefixEvaluate(prefix);
+		System.out.println("Result  : " + res);	
+	}
+}
+//OUTPUT:
+Prefix : -++4/*56397
+Result  : 16
+----------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------
+
+Q-6. Implement following algorithms for multi digit numbers i. infix to postfix ii. infix to prefix.
+
+package sunbeam;
+
+import java.util.Stack;
+
+public class ExpressionConversion {
+	
+	public static int priority(char opr) {
+		switch(opr) {
+		case '$': return 10;
+		case '*':
+		case '/':
+		case '%':
+			return 9;
+		case '+':
+		case '-':
+			return 8;
+		}
+		return 0;
+	}
+	
+	public static String infixToPostfix(String infix) {
+		Stack<Character> st = new Stack<Character>();
+		StringBuilder postfix = new StringBuilder();
+		for(int i = 0 ; i < infix.length() ; i++) {
+			char ele = infix.charAt(i);
+			if(Character.isDigit(ele)) {
+				postfix.append(ele);
+			}
+			else if(ele == '(') {
+				st.push(ele);
+			}
+			else if(ele == ')') {
+				while(st.peek() != '(') 
+					postfix.append(st.pop());
+				st.pop();
+			}
+			else {
+				while(!st.isEmpty() && priority(st.peek()) >= priority(ele)) {
+					postfix.append(st.pop());
+				}
+				st.push(ele);
+			}
+		}
+		while(!st.isEmpty())
+			postfix.append(st.pop());
+		return postfix.toString();
+	}
+	
+	public static String infixToPrefix(String infix) {
+		Stack<Character> st = new Stack<Character>();
+		StringBuilder prefix = new StringBuilder();
+		for(int i = infix.length()-1 ; i >= 0 ; i--) {
+			char ele = infix.charAt(i);
+			if(Character.isDigit(ele)) {
+				prefix.append(ele);
+			}
+			else if(ele == ')') {
+				st.push(ele);
+			}
+			else if(ele == '(') {
+				while(st.peek() != ')') 
+					prefix.append(st.pop());
+				st.pop();
+			}
+			else {
+				while(!st.isEmpty() && priority(st.peek()) > priority(ele)) {
+					prefix.append(st.pop());
+				}
+				st.push(ele);
+			}
+		}
+		while(!st.isEmpty())
+			prefix.append(st.pop());
+		
+		prefix.reverse();
+		
+		return prefix.toString();
+	}
+
+	public static void main(String[] args) {
+		String infix = "1$9+3*4-(6+8/2)+7";
+		System.out.println("Infix : " + infix);
+		String postfix = infixToPostfix(infix);
+		System.out.println("Postfix : " + postfix);
+		
+		String prefix = infixToPrefix(infix);
+		System.out.println("Prefix : " + prefix);
+	}
+
+}
+
+	Output:   Infix : 1$9+3*4-(6+8/2)+7
+		  Postfix : 19$34*+682/+-7+
+		  Prefix : +-+$19*34+6/827
+		  
+7. Paperwork: Convert following examples from Infix to Prefix and Postfix. K + L - M*N + (O^P) * W/U/V *
+T + Q (A + B) * C - (D - E) * (F + G)
+
+
+Infix to Postfix:
+K L + M N * - O P ^ W * U / V / T * + Q A B + C * - D E - F G + * +
+
+
+Infix to Prefix:
++ - + K L * M N / ^ * W / U V * T + Q * + A B C - - D E + F G
+
+8. Paperwork: Convert followinf expression to Prefix using stack algorithm. Refer code. 5+9-4*(8-
+6/2)+1$(7-3)
+
+Prefix : -+5 9+4*-8/6 2$1-7 3
+
+
