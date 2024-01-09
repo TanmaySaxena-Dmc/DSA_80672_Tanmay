@@ -1,0 +1,272 @@
+----------------------------Data Structures and Algorithms - Assignment 2--------------------------------
+
+Q1. Write a insertion sort function to sort array and returns no of comparisions.
+
+
+public class InsertionSort {
+
+    public static int insertionSort(int[] arr) {
+        int comparisons = 0;
+        int n = arr.length;
+
+        for (int i = 1; i < n; ++i) {
+            int key = arr[i];
+            int j = i - 1;
+
+            while (j >= 0 && arr[j] > key) {
+                comparisons++;
+                arr[j + 1] = arr[j];
+                j = j - 1;
+            }
+            arr[j + 1] = key;
+        }
+
+        return comparisons;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = { 12, 11, 13, 5, 6 };
+        int comparisons = insertionSort(arr);
+
+        System.out.println("Sorted array: ");
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
+        System.out.println("\nNumber of comparisons: " + comparisons);
+    }
+}
+
+//OUTPUT:
+Sorted array: 
+5 6 11 12 13 
+Number of comparisons: 7
+
+----------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------
+
+Q2. Modify the insertion sort algorithm to sort the array in descending order.
+
+
+public class InsertionSortDescending {
+
+    public static int insertionSortDescending(int[] arr) {
+        int comparisons = 0;
+        int n = arr.length;
+
+        for (int i = 1; i < n; ++i) {
+            int key = arr[i];
+            int j = i - 1;
+
+            while (j >= 0 && arr[j] < key) {
+                comparisons++;
+                arr[j + 1] = arr[j];
+                j = j - 1;
+            }
+            arr[j + 1] = key;
+        }
+
+        return comparisons;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = { 12, 11, 13, 5, 6 };
+        int comparisons = insertionSortDescending(arr);
+
+        System.out.println("Sorted array in descending order: ");
+        for (int num : arr) {
+            System.out.print(num + " ");
+        }
+        System.out.println("\nNumber of comparisons: " + comparisons);
+    }
+}
+
+//OUTPUT:
+Sorted array in descending order: 
+13 12 11 6 5 
+Number of comparisons: 3
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------
+
+Q3. Write a function to sort employees by their salary.
+
+import java.util.Arrays;
+import java.util.Comparator;
+
+public class SortEmployeesBySalary {
+
+    public static class Employee {
+        private int empId;
+        private String name;
+        private double salary;
+
+        public Employee(int empId, String name, double salary) {
+            this.empId = empId;
+            this.name = name;
+            this.salary = salary;
+        }
+        
+        public int getEmpId() {
+			return empId;
+		}
+
+		public void setEmpId(int empId) {
+			this.empId = empId;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public double getSalary() {
+			return salary;
+		}
+
+		public void setSalary(double salary) {
+			this.salary = salary;
+		}
+
+		@Override
+        public String toString() {
+            return "Employee ID: " + empId + ", Name: " + name + ", Salary: " + salary;
+        }
+    }
+
+    public static void sortBySalary(Employee[] employees) {
+        Arrays.sort(employees, Comparator.comparingDouble(Employee::getSalary));
+    }
+
+    public static void main(String[] args) {
+        Employee[] employees = {
+        	new Employee(3, "Pawan Ingle", 550000),
+        	new Employee(2, "Pravin Bawne", 450000),
+            new Employee(1, "Rani Ingle", 80000)
+        };
+
+        sortBySalary(employees);
+
+        System.out.println("Employees sorted by salary:");
+        for (Employee emp : employees) {
+            System.out.println(emp);
+        }
+    }
+}
+
+//OUTPUT:
+Employees sorted by salary:
+Employee ID: 1, Name: Rani Ingle, Salary: 80000.0
+Employee ID: 2, Name: Pravin Bawne, Salary: 450000.0
+Employee ID: 3, Name: Pawan Ingle, Salary: 550000.0
+----------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------
+
+Q4. Write a program to implement descending stack. (Initialize top = SIZE)
+public class DescendingStack {
+    private int top;
+    private int maxSize;
+    private int[] stackArray;
+
+    public DescendingStack(int size) {
+        maxSize = size;
+        stackArray = new int[maxSize];
+        top = maxSize;
+    }
+
+    public void push(int data) {
+        if (top > 0) {
+            top--;
+            stackArray[top] = data;
+            System.out.println("Pushed element: " + data);
+        } else {
+            System.out.println("Stack Overflow. Cannot push element: " + data);
+        }
+    }
+
+    public int pop() {
+        if (!isEmpty()) {
+            int data = stackArray[top];
+            top++;
+            return data;
+        } else {
+            System.out.println("Stack Underflow. Cannot pop element.");
+            return -1;
+        }
+    }
+
+    public boolean isEmpty() {
+        return top == maxSize;
+    }
+
+    public static void main(String[] args) {
+        int stackSize = 5;
+        DescendingStack descendingStack = new DescendingStack(stackSize);
+
+        descendingStack.push(10);
+        descendingStack.push(8);
+        descendingStack.push(6);
+        descendingStack.push(4);
+        descendingStack.push(2);
+
+        System.out.println("Popping elements:");
+        while (!descendingStack.isEmpty()) {
+            int popped = descendingStack.pop();
+            if (popped != -1) {
+                System.out.println("Popped element: " + popped);
+            }
+        }
+    }
+}
+//OUTPUT:
+Pushed element: 10
+Pushed element: 8
+Pushed element: 6
+Pushed element: 4
+Pushed element: 2
+Popping elements:
+Popped element: 2
+Popped element: 4
+Popped element: 6
+Popped element: 8
+Popped element: 10
+----------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------
+
+Q5. Write a function which will give you a priority of a given operator. (This priority will be further used to compare two operators)
+
+public class OperatorPriority {
+
+    public static int getPriority(char operator) {
+        switch (operator) {
+            case '^':
+                return 3;
+            case '*':
+            case '/':
+                return 2;
+            case '+':
+            case '-':
+                return 1;
+            case '(':
+            case ')':
+                return 0;
+            default:
+                return -1; // Default priority if operator is not found
+        }
+    }
+
+    public static void main(String[] args) {
+        char op1 = '+';
+        char op2 = '/';
+        
+        int priorityOp1 = getPriority(op1);
+        int priorityOp2 = getPriority(op2);
+        
+        System.out.println("Priority of " + op1 + " is: " + priorityOp1); // Output: Priority of + is: 1
+        System.out.println("Priority of " + op2 + " is: " + priorityOp2); // Output: Priority of / is: 2
+    }
+}
+
