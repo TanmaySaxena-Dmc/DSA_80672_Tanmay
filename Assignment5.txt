@@ -1,0 +1,154 @@
+1. Write recursive function to add node into bst.
+
+2. Write recursive function to Search node into bst.
+
+3. Write a function to count the number of leaf nodes in the given binary search tree.
+
+4. Write a function to count the number of non leaf nodes in the given binary search tree.
+
+5. Write a function to return level/depth of given node in a BST.
+
+
+class TreeNode {
+    int key;
+    TreeNode left, right;
+
+    public TreeNode(int item) {
+        key = item;
+        left = right = null;
+    }
+}
+
+public class BST {
+    public TreeNode insertIntoBST(TreeNode root, int key) {
+        if (root == null) {
+            return new TreeNode(key);
+        }
+
+        if (key < root.key) {
+            root.left = insertIntoBST(root.left, key);
+        } else if (key > root.key) {
+            root.right = insertIntoBST(root.right, key);
+        }
+
+        return root;
+    }
+}
+
+
+
+class TreeNode {
+    int key;
+    TreeNode left, right;
+
+    public TreeNode(int item) {
+        key = item;
+        left = right = null;
+    }
+}
+
+public class BST {
+    public TreeNode insertIntoBST(TreeNode root, int key) {
+        if (root == null) {
+            return new TreeNode(key);
+        }
+
+        if (key < root.key) {
+            root.left = insertIntoBST(root.left, key);
+        } else if (key > root.key) {
+            root.right = insertIntoBST(root.right, key);
+        }
+
+        return root;
+    }
+}
+
+
+
+
+class TreeNode {
+    int key;
+    TreeNode left, right;
+
+    public TreeNode(int item) {
+        key = item;
+        left = right = null;
+    }
+}
+
+public class BST {
+    public TreeNode insertIntoBST(TreeNode root, int key) {
+        if (root == null) {
+            return new TreeNode(key);
+        }
+
+        if (key < root.key) {
+            root.left = insertIntoBST(root.left, key);
+        } else if (key > root.key) {
+            root.right = insertIntoBST(root.right, key);
+        }
+
+        return root;
+    }
+}
+
+
+
+
+class TreeNode {
+    int key;
+    TreeNode left, right;
+
+    public TreeNode(int item) {
+        key = item;
+        left = right = null;
+    }
+}
+
+public class BST {
+    public TreeNode insertIntoBST(TreeNode root, int key) {
+        if (root == null) {
+            return new TreeNode(key);
+        }
+
+        if (key < root.key) {
+            root.left = insertIntoBST(root.left, key);
+        } else if (key > root.key) {
+            root.right = insertIntoBST(root.right, key);
+        }
+
+        return root;
+    }
+    
+    class TreeNode {
+    int key;
+    TreeNode left, right;
+
+    public TreeNode(int item) {
+        key = item;
+        left = right = null;
+    }
+}
+
+public class BST {
+    public TreeNode insertIntoBST(TreeNode root, int key) {
+        if (root == null) {
+            return new TreeNode(key);
+        }
+
+        if (key < root.key) {
+            root.left = insertIntoBST(root.left, key);
+        } else if (key > root.key) {
+            root.right = insertIntoBST(root.right, key);
+        }
+
+        return root;
+    }
+}
+
+}
+
+
+
+
+
